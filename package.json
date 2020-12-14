@@ -1,0 +1,25 @@
+{
+  "name": "url-search-params",
+  "version": "1.0.0",
+  "description": "A small library to make working with the URL search string easier",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viscoze/urlsearchparams.git"
+  },
+  "keywords": [
+    "urlsearchparams",
+    "url",
+    "params",
+    "query"
+  ],
+  "author": "viscoze",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/viscoze/urlsearchparams/issues"
+  },
+  "homepage": "https://github.com/viscoze/urlsearchparams#readme"
+}
