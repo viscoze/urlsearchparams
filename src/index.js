@@ -32,6 +32,12 @@ class UrlSearchParams {
       return this
     }
 
+    if (_.last(path) === '$array') {
+      this.paramsList = this.paramsList.append(path, value)
+
+      return this
+    }
+
     if (this.paramsList.has(path)) {
       this.paramsList = this.paramsList.update(path, value)
 

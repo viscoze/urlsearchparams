@@ -43,6 +43,14 @@ describe('set', () => {
       )
     })
 
+    it('appends param if it is array item', () => {
+      urlSearch.set('query2[field][]', 'value1').set('query2[field][]', 'value2')
+
+      expect(urlSearch.toString()).toBe(
+        'query1[obj][field1]=value1&query1[obj][field2]=value2&query2[field][]=value1&query2[field][]=value2',
+      )
+    })
+
     it('appends param if value is empty string', () => {
       urlSearch.set('query2', '')
 
@@ -125,7 +133,8 @@ describe('toString', () => {
 
 describe('toObject', () => {
   it('returns search as object', () => {
-    const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2&query2=value2'
+    const searchString =
+      'query1[obj][field1]=value1&query1[obj][field2]=value2&query2=value2&query3[field][]=value1&query3[field][]=value2'
 
     const urlSearch = UrlSearchParams.fromString(searchString)
 
@@ -137,6 +146,9 @@ describe('toObject', () => {
         },
       },
       query2: 'value2',
+      query3: {
+        field: ['value1', 'value2'],
+      },
     })
   })
 

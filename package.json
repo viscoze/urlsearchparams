@@ -4,7 +4,7 @@
   "description": "A small library to make working with the URL search string easier",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch",
     "lint": "dreact lint js --cache --fix",
     "prettier": "prettier --check '{src,public,config}/**/*.{js,json,md,html}'"
   },
