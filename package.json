@@ -9,6 +9,9 @@
     "prettier": "prettier --check '{src,public,config}/**/*.{js,json,md,html}'"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.12.11",
+    "babel-jest": "^26.6.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "dreact": "^0.8.1",
     "jest": "^26.6.3",
     "prettier": "^2.0.5",
@@ -26,6 +29,17 @@
     "singleQuote": true,
     "trailingComma": "all",
     "arrowParens": "avoid"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    },
+    "testMatch": [
+      "<rootDir>/**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "repository": {
     "type": "git",
