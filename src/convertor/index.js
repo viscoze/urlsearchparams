@@ -89,4 +89,9 @@ function toSearchObject(paramsArray) {
   return paramsArray.reduce((acc, { path, value }) => convert(path, value, acc), {})
 }
 
-export default { fromSearchString, toSearchString, fromSearchObject, toSearchObject }
+export default {
+  fromSearchString,
+  toSearchString,
+  fromSearchObject,
+  toSearchObject,
+}

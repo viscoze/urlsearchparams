@@ -1,3 +1,4 @@
+import _flow from 'lodash/flow'
 import _last from 'lodash/last'
 import _isNil from 'lodash/isNil'
 
@@ -13,7 +14,7 @@ class UrlSearchParams {
   paramsList = null
 
   constructor(searchString) {
-    this.paramsList = _.flow(
+    this.paramsList = _flow(
       string => string.replace(/^\?/, ''),
       convertor.fromSearchString,
       ParamsList.fromArray,
