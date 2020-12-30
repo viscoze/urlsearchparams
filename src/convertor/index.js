@@ -29,58 +29,60 @@ function toSearchString(paramsArray) {
 }
 
 function fromSearchObject(searchObject) {
-  const paramsArray = []
+  function convertToArray(object, path = [], result = []) {
+    return _.reduce(
+      object,
+      (acc, value, key) => {
+        if (_.isPlainObject(value)) {
+          return convertToArray(value, path.concat(key), acc)
+        }
 
-  function convertToArray(object, path = []) {
-    _.forEach(object, (value, key) => {
-      if (_.isPlainObject(value)) {
-        convertToArray(value, path.concat(key))
-      } else {
-        paramsArray.push({ path: path.concat(key), value })
-      }
-    })
+        if (_.isArray(value)) {
+          return value.reduce(
+            (items, item) => items.concat({ path: path.concat(key).concat('$array'), value: item }),
+            acc,
+          )
+        }
+
+        return acc.concat({ path: path.concat(key), value })
+      },
+      result,
+    )
   }
 
-  convertToArray(searchObject)
-
-  return paramsArray
+  return convertToArray(searchObject)
 }
 
 function toSearchObject(paramsArray) {
-  function convertToObject(array) {
-    const object = {}
+  function convert(path, value, acc = {}) {
+    const [head, ...rest] = path
+    const [nextHead] = rest
+    const node = acc[head] ?? {}
 
-    array.forEach(({ path, value }) => {
-      const [head, ...rest] = path
-
-      if (_.isEmpty(rest)) {
-        object[head] = value
-
-        return
+    if (nextHead === '$array') {
+      return {
+        ...acc,
+        [head]: _.get(acc, head, []).concat(value),
       }
+    }
 
-      if (!object[head]) {
-        object[head] = []
+    if (_.isEmpty(rest)) {
+      return {
+        ...acc,
+        [head]: value,
       }
+    }
 
-      object[head].push({
-        path: rest,
-        value,
-      })
-    })
-
-    _.mapValues(object, (value, key) => {
-      if (_.isArray(value)) {
-        object[key] = convertToObject(value)
-      }
-
-      return value
-    })
-
-    return object
+    return {
+      ...acc,
+      [head]: {
+        ...node,
+        ...convert(rest, value, node),
+      },
+    }
   }
 
-  return convertToObject(paramsArray)
+  return paramsArray.reduce((acc, { path, value }) => convert(path, value, acc), {})
 }
 
 export default { fromSearchString, toSearchString, fromSearchObject, toSearchObject }

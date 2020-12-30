@@ -1,12 +1,18 @@
 import _ from 'lodash'
 
 export function convertKeyToPath(key) {
-  return key.replace(/[]/g, '$array').replace(/]/g, '').split(/\[/)
+  return key.replace(/\[\]/g, '[$array]').replace(/]/g, '').split(/\[/g)
 }
 
 export function convertPathToKey(path) {
   const [head, ...rest] = path
-  const result = rest.reduce((acc, item) => `${acc}[${item}]`, head)
+  const result = rest.reduce((acc, item) => {
+    if (item === '$array') {
+      return `${acc}[]`
+    }
+
+    return `${acc}[${item}]`
+  }, head)
 
   return result
 }

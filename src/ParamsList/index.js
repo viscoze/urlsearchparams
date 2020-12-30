@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { comparePaths, includesPath } from '../helpers'
+import { includesPath } from '../helpers'
 
 class ParamsList {
   paramsArray = []

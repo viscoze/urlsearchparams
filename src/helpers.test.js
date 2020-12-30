@@ -8,6 +8,14 @@ describe('convertKeyToPath', () => {
 
     expect(path).toMatchObject(['query', 'object', 'field'])
   })
+
+  it('marks array path item', () => {
+    const key = 'query[object][field][]'
+
+    const path = convertKeyToPath(key)
+
+    expect(path).toMatchObject(['query', 'object', 'field', '$array'])
+  })
 })
 
 describe('convertPathToKey', () => {
@@ -17,6 +25,14 @@ describe('convertPathToKey', () => {
     const key = convertPathToKey(path)
 
     expect(key).toBe('query[object][field]')
+  })
+
+  it('removes array markers', () => {
+    const path = ['query', 'object', 'field', '$array']
+
+    const key = convertPathToKey(path)
+
+    expect(key).toBe('query[object][field][]')
   })
 })
 
