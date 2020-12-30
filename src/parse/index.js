@@ -1,9 +1,9 @@
-import _ from 'lodash'
+import _flow from 'lodash/flow'
 
 import convertor from '../convertor'
 
 function parse(searchString) {
-  return _.flow(convertor.fromSearchString, convertor.toSearchObject)(searchString)
+  return _flow(convertor.fromSearchString, convertor.toSearchObject)(searchString)
 }
 
 export default parse

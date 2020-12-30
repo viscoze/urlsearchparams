@@ -1,4 +1,8 @@
-import _ from 'lodash'
+import _get from 'lodash/get'
+import _reduce from 'lodash/reduce'
+import _isEmpty from 'lodash/isEmpty'
+import _isArray from 'lodash/isArray'
+import _isPlainObject from 'lodash/isPlainObject'
 
 import { convertKeyToPath, convertPathToKey } from '../helpers'
 
@@ -30,14 +34,14 @@ function toSearchString(paramsArray) {
 
 function fromSearchObject(searchObject) {
   function convertToArray(object, path = [], result = []) {
-    return _.reduce(
+    return _reduce(
       object,
       (acc, value, key) => {
-        if (_.isPlainObject(value)) {
+        if (_isPlainObject(value)) {
           return convertToArray(value, path.concat(key), acc)
         }
 
-        if (_.isArray(value)) {
+        if (_isArray(value)) {
           return value.reduce(
             (items, item) => items.concat({ path: path.concat(key).concat('$array'), value: item }),
             acc,
@@ -62,11 +66,11 @@ function toSearchObject(paramsArray) {
     if (nextHead === '$array') {
       return {
         ...acc,
-        [head]: _.get(acc, head, []).concat(value),
+        [head]: _get(acc, head, []).concat(value),
       }
     }
 
-    if (_.isEmpty(rest)) {
+    if (_isEmpty(rest)) {
       return {
         ...acc,
         [head]: value,

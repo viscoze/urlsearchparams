@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import _zipWith from 'lodash/zipWith'
+import _takeWhile from 'lodash/takeWhile'
 
 export function convertKeyToPath(key) {
   return key.replace(/\[\]/g, '[$array]').replace(/]/g, '').split(/\[/g)
@@ -25,8 +26,8 @@ export function includesPath(pathA, pathB) {
   const lengthA = pathA.length
   const lengthB = pathB.length
 
-  const count = _.takeWhile(
-    _.zipWith(pathA, pathB, (a, b) => a === b),
+  const count = _takeWhile(
+    _zipWith(pathA, pathB, (a, b) => a === b),
     Boolean,
   ).length
 

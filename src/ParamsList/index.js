@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _cloneDeep from 'lodash/cloneDeep'
 
 import { includesPath } from '../helpers'
 
@@ -42,7 +42,7 @@ class ParamsList {
   }
 
   toArray() {
-    return _.cloneDeep(this.paramsArray)
+    return _cloneDeep(this.paramsArray)
   }
 }
 

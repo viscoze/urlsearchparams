@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import _last from 'lodash/last'
+import _isNil from 'lodash/isNil'
 
 import convertor from './convertor'
 import ParamsList from './ParamsList'
@@ -26,13 +27,13 @@ class UrlSearchParams {
   set(key, value) {
     const path = convertKeyToPath(key)
 
-    if (_.isNil(value)) {
+    if (_isNil(value)) {
       this.paramsList = this.paramsList.remove(path)
 
       return this
     }
 
-    if (_.last(path) === '$array') {
+    if (_last(path) === '$array') {
       this.paramsList = this.paramsList.append(path, value)
 
       return this
