@@ -8,7 +8,7 @@
     "lint": "eslint src",
     "prettier": "prettier --check '{src,public,config}/**/*.{js,json,md,html}'",
     "build": "webpack --mode production",
-    "publish": "npm publish",
+    "publish": "npm publish --access=public",
     "prepublish": "webpack --mode production"
   },
   "dependencies": {
