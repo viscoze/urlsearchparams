@@ -2,7 +2,7 @@
   "name": "url-search-params",
   "version": "1.0.0",
   "description": "A small library to make working with the URL search string easier",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "jest --watch",
     "lint": "eslint src",
