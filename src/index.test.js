@@ -109,6 +109,28 @@ describe('set', () => {
   })
 })
 
+describe('has', () => {
+  const searchString = 'query[obj][field1]=value1&query[obj][field2]=value2'
+
+  it('returns true if there is item with passed path', () => {
+    const urlSearch = UrlSearchParams.fromString(searchString)
+
+    expect(urlSearch.has('query[obj][field1]')).toBe(true)
+  })
+
+  it('returns true if there are items with passed head of path', () => {
+    const urlSearch = UrlSearchParams.fromString(searchString)
+
+    expect(urlSearch.has('query[obj]')).toBe(true)
+  })
+
+  it('returns false if there is no item with passed path', () => {
+    const urlSearch = UrlSearchParams.fromString(searchString)
+
+    expect(urlSearch.has('query[obj][field3]')).toBe(false)
+  })
+})
+
 describe('toString', () => {
   const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2'
 

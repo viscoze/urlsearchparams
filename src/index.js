@@ -51,6 +51,12 @@ class UrlSearchParams {
     return this
   }
 
+  has(key) {
+    const path = convertKeyToPath(key)
+
+    return this.paramsList.has(path)
+  }
+
   toString() {
     return convertor.toSearchString(this.paramsList.toArray())
   }
