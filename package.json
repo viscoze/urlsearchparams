@@ -1,5 +1,5 @@
 {
-  "name": "url-search-params",
+  "name": "@viscoze/urlsearchparams",
   "version": "1.0.0",
   "description": "A small library to make working with the URL search string easier",
   "main": "build/index.js",
