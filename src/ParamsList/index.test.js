@@ -1,5 +1,36 @@
 import ParamsList from '.'
 
+describe('get', () => {
+  it('returns param as array by exact path', () => {
+    const paramsArray = [
+      { path: ['query1', 'obj', 'field1'], value: 'value1' },
+      { path: ['query1', 'obj', 'field2'], value: 'value2' },
+      { path: ['query2'], value: 'value2' },
+    ]
+
+    const paramsList = ParamsList.fromArray(paramsArray)
+
+    expect(paramsList.get(['query1', 'obj', 'field1']).toArray()).toMatchObject([
+      { path: ['query1', 'obj', 'field1'], value: 'value1' },
+    ])
+  })
+
+  it('returns params by head of path', () => {
+    const paramsArray = [
+      { path: ['query1', 'obj', 'field1'], value: 'value1' },
+      { path: ['query1', 'obj', 'field2'], value: 'value2' },
+      { path: ['query2'], value: 'value2' },
+    ]
+
+    const paramsList = ParamsList.fromArray(paramsArray)
+
+    expect(paramsList.get(['query1', 'obj']).toArray()).toMatchObject([
+      { path: ['query1', 'obj', 'field1'], value: 'value1' },
+      { path: ['query1', 'obj', 'field2'], value: 'value2' },
+    ])
+  })
+})
+
 describe('append', () => {
   it('appends param', () => {
     const paramsArray = [
