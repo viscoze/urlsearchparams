@@ -11,6 +11,27 @@ it('exports stringify', () => {
   expect(stringify).toBe(stringifyOrigin)
 })
 
+describe('get', () => {
+  let urlSearch
+
+  const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2&query2=value3'
+
+  beforeEach(() => {
+    urlSearch = UrlSearchParams.fromString(searchString)
+  })
+
+  it('returns param as array by exact key', () => {
+    expect(urlSearch.get('query1[obj][field1]')).toBe('value1')
+  })
+
+  it('returns params by head of key', () => {
+    expect(urlSearch.get('query1[obj]')).toMatchObject({
+      field1: 'value1',
+      field2: 'value2',
+    })
+  })
+})
+
 describe('set', () => {
   let urlSearch
 

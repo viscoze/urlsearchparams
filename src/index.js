@@ -1,5 +1,6 @@
 import _flow from 'lodash/flow'
 import _last from 'lodash/last'
+import _first from 'lodash/first'
 import _isNil from 'lodash/isNil'
 
 import convertor from './convertor'
@@ -23,6 +24,22 @@ class UrlSearchParams {
 
   static fromString(searchString) {
     return new UrlSearchParams(searchString)
+  }
+
+  get(key) {
+    const path = convertKeyToPath(key)
+    const params = this.paramsList.get(path).toArray()
+
+    if (params.length === 1) {
+      return _first(params).value
+    }
+
+    const paramsWihoutCommonPath = params.map(param => ({
+      path: param.path.slice(path.length),
+      value: param.value,
+    }))
+
+    return convertor.toSearchObject(paramsWihoutCommonPath)
   }
 
   set(key, value) {
