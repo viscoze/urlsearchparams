@@ -13,6 +13,12 @@ class ParamsList {
     return new ParamsList(paramsArray)
   }
 
+  get(path) {
+    const paramsArray = this.paramsArray.filter(paramItem => includesPath(paramItem.path, path))
+
+    return ParamsList.fromArray(paramsArray)
+  }
+
   append(path, value) {
     const nextParamsArray = this.paramsArray.concat({ path, value })
 
