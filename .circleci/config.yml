@@ -1,0 +1,20 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@3.0.0
+
+jobs:
+  validate:
+    steps:
+      - run:
+          command: yarn lint
+          when: always
+
+      - run:
+          command: yarn test --maxWorkers=2 --colors
+          when: always
+
+workflows:
+  node-tests:
+    jobs:
+      - node/test
