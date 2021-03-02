@@ -118,3 +118,7 @@ const searchString = 'query[obj][field1]=value1'
 UrlSearchParams.fromString(searchString).set('query[obj][field1]', 'value2').toString()
 // => 'query[obj][field1]=value1&query[obj][field2]=value2'
 ```
+
+## Additional Info
+
+All of the functions that accept the path to a value in a format like `query[obj][field1]` also can accept it as an array like `['query', 'obj', 'field1']` so that you can use you own format for the path.

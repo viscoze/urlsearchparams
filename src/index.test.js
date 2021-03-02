@@ -30,6 +30,10 @@ describe('get', () => {
       field2: 'value2',
     })
   })
+
+  it('accepts path as array', () => {
+    expect(urlSearch.get(['query1', 'obj', 'field1'])).toBe('value1')
+  })
 })
 
 describe('set', () => {
@@ -52,6 +56,12 @@ describe('set', () => {
       urlSearch.set('query1[obj]', 'valueNew')
 
       expect(urlSearch.toString()).toBe('query1[obj]=valueNew')
+    })
+
+    it('accepts path as array', () => {
+      urlSearch.set(['query1', 'obj', 'field1'], 'valueNew')
+
+      expect(urlSearch.toString()).toBe('query1[obj][field2]=value2&query1[obj][field1]=valueNew')
     })
   })
 
@@ -107,6 +117,14 @@ describe('set', () => {
 
       expect(urlSearch.toString()).toBe('query1[obj][field1]=value1&query1[obj][field2]=value2')
     })
+
+    it('accepts path as array', () => {
+      urlSearch.set(['query1', 'obj', 'field3'], 'value3')
+
+      expect(urlSearch.toString()).toBe(
+        'query1[obj][field1]=value1&query1[obj][field2]=value2&query1[obj][field3]=value3',
+      )
+    })
   })
 
   describe('removing', () => {
@@ -127,28 +145,38 @@ describe('set', () => {
 
       expect(urlSearch.toString()).toBe('')
     })
+
+    it('accepts path as array', () => {
+      urlSearch.set(['query1', 'obj', 'field2'], null)
+
+      expect(urlSearch.toString()).toBe('query1[obj][field1]=value1')
+    })
   })
 })
 
 describe('has', () => {
+  let urlSearch
+
   const searchString = 'query[obj][field1]=value1&query[obj][field2]=value2'
 
-  it('returns true if there is item with passed path', () => {
-    const urlSearch = UrlSearchParams.fromString(searchString)
+  beforeEach(() => {
+    urlSearch = UrlSearchParams.fromString(searchString)
+  })
 
+  it('returns true if there is item with passed path', () => {
     expect(urlSearch.has('query[obj][field1]')).toBe(true)
   })
 
   it('returns true if there are items with passed head of path', () => {
-    const urlSearch = UrlSearchParams.fromString(searchString)
-
     expect(urlSearch.has('query[obj]')).toBe(true)
   })
 
   it('returns false if there is no item with passed path', () => {
-    const urlSearch = UrlSearchParams.fromString(searchString)
-
     expect(urlSearch.has('query[obj][field3]')).toBe(false)
+  })
+
+  it('accepts path as array', () => {
+    expect(urlSearch.has(['query', 'obj', 'field1'])).toBe(true)
   })
 })
 

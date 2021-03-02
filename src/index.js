@@ -2,6 +2,7 @@ import _flow from 'lodash/flow'
 import _last from 'lodash/last'
 import _first from 'lodash/first'
 import _isNil from 'lodash/isNil'
+import _isArray from 'lodash/isArray'
 
 import convertor from './convertor'
 import ParamsList from './ParamsList'
@@ -10,6 +11,14 @@ import { convertKeyToPath } from './helpers'
 export { default as parse } from './parse'
 
 export { default as stringify } from './stringify'
+
+function preparePath(key) {
+  if (_isArray(key)) {
+    return key
+  }
+
+  return convertKeyToPath(key)
+}
 
 class UrlSearchParams {
   paramsList = null
@@ -27,7 +36,7 @@ class UrlSearchParams {
   }
 
   get(key) {
-    const path = convertKeyToPath(key)
+    const path = preparePath(key)
     const params = this.paramsList.get(path).toArray()
 
     if (params.length === 1) {
@@ -43,7 +52,7 @@ class UrlSearchParams {
   }
 
   set(key, value) {
-    const path = convertKeyToPath(key)
+    const path = preparePath(key)
 
     if (_isNil(value)) {
       this.paramsList = this.paramsList.remove(path)
@@ -69,7 +78,7 @@ class UrlSearchParams {
   }
 
   has(key) {
-    const path = convertKeyToPath(key)
+    const path = preparePath(key)
 
     return this.paramsList.has(path)
   }
