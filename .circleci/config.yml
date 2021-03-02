@@ -3,10 +3,13 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 
+common: &common
+  docker:
+    - image: circleci/node:10
+
 jobs:
   validate:
-    docker:
-      - image: circleci/node:10
+    <<: *common
 
     steps:
       - run:
@@ -18,10 +21,14 @@ jobs:
           when: always
 
   build:
+    <<: *common
+
     steps:
       - run: yarn build
 
 workflows:
-  node-tests:
+  version: 2
+
+  delivery:
     jobs:
       - validate
