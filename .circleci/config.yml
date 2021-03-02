@@ -5,6 +5,9 @@ orbs:
 
 jobs:
   validate:
+    docker:
+      - image: circleci/node:10
+
     steps:
       - run:
           command: yarn lint
@@ -14,7 +17,11 @@ jobs:
           command: yarn test --maxWorkers=2 --colors
           when: always
 
+  build:
+    steps:
+      - run: yarn build
+
 workflows:
   node-tests:
     jobs:
-      - node/test
+      - validate
