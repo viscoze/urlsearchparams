@@ -4,14 +4,34 @@ orbs:
   node: circleci/node@3.0.0
 
 common: &common
+  working_directory: ~/app
+
   docker:
     - image: circleci/node:10
 
+attach_workspace_at_app: &attach_workspace_at_app
+  attach_workspace:
+    at: ~/app
+
 jobs:
+  prepare:
+    <<: *common
+
+    steps:
+      - checkout
+
+      - run: yarn install --frozen-lockfile
+
+      - persist_to_workspace:
+          root: ~/app
+          paths: .
+
   validate:
     <<: *common
 
     steps:
+      - *attach_workspace_at_app
+
       - run:
           command: yarn lint
           when: always
@@ -31,4 +51,8 @@ workflows:
 
   delivery:
     jobs:
-      - validate
+      - prepare
+
+      - validate:
+          requires:
+            - prepare
