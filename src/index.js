@@ -1,3 +1,4 @@
+import _get from 'lodash/get'
 import _flow from 'lodash/flow'
 import _last from 'lodash/last'
 import _first from 'lodash/first'
@@ -39,17 +40,9 @@ class UrlSearchParams {
   get(key) {
     const path = preparePath(key)
     const params = this.paramsList.get(path).toArray()
+    const searchObject = convertor.toSearchObject(params)
 
-    if (params.length === 1) {
-      return _first(params).value
-    }
-
-    const paramsWihoutCommonPath = params.map(param => ({
-      path: param.path.slice(path.length),
-      value: param.value,
-    }))
-
-    return convertor.toSearchObject(paramsWihoutCommonPath)
+    return _get(searchObject, path, null)
   }
 
   set(key, value) {

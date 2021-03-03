@@ -42,6 +42,13 @@ describe('get', () => {
 
     expect(urlSearch.get(['query1', 'obj', 'field1'])).toBe('value1')
   })
+
+  it('returns null if no query param was found', () => {
+    const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2'
+    const urlSearch = UrlSearchParams.fromString(searchString)
+
+    expect(urlSearch.get('noquery[obj]')).toBe(null)
+  })
 })
 
 describe('set', () => {
