@@ -1,7 +1,6 @@
 import _get from 'lodash/get'
 import _flow from 'lodash/flow'
 import _last from 'lodash/last'
-import _first from 'lodash/first'
 import _isNil from 'lodash/isNil'
 import _isArray from 'lodash/isArray'
 
