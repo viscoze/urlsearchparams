@@ -12,19 +12,24 @@ it('exports stringify', () => {
 })
 
 describe('get', () => {
-  let urlSearch
+  it('returns param value by exact key', () => {
+    const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2'
+    const urlSearch = UrlSearchParams.fromString(searchString)
 
-  const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2&query2=value3'
-
-  beforeEach(() => {
-    urlSearch = UrlSearchParams.fromString(searchString)
-  })
-
-  it('returns param as array by exact key', () => {
     expect(urlSearch.get('query1[obj][field1]')).toBe('value1')
   })
 
+  it('returns array param value by exact key', () => {
+    const searchString = 'query[field][]=value1&query[field][]=value2'
+    const urlSearch = UrlSearchParams.fromString(searchString)
+
+    expect(urlSearch.get('query[field]')).toMatchObject(['value1', 'value2'])
+  })
+
   it('returns params by head of key', () => {
+    const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2'
+    const urlSearch = UrlSearchParams.fromString(searchString)
+
     expect(urlSearch.get('query1[obj]')).toMatchObject({
       field1: 'value1',
       field2: 'value2',
@@ -32,7 +37,17 @@ describe('get', () => {
   })
 
   it('accepts path as array', () => {
+    const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2'
+    const urlSearch = UrlSearchParams.fromString(searchString)
+
     expect(urlSearch.get(['query1', 'obj', 'field1'])).toBe('value1')
+  })
+
+  it('returns null if no query param was found', () => {
+    const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2'
+    const urlSearch = UrlSearchParams.fromString(searchString)
+
+    expect(urlSearch.get('noquery[obj]')).toBe(null)
   })
 })
 

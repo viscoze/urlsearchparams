@@ -1,9 +1,10 @@
+import _get from 'lodash/get'
 import _flow from 'lodash/flow'
 import _last from 'lodash/last'
-import _first from 'lodash/first'
 import _isNil from 'lodash/isNil'
 import _isArray from 'lodash/isArray'
 
+import { ARRAY } from './constants'
 import convertor from './convertor'
 import ParamsList from './ParamsList'
 import { convertKeyToPath } from './helpers'
@@ -38,17 +39,9 @@ class UrlSearchParams {
   get(key) {
     const path = preparePath(key)
     const params = this.paramsList.get(path).toArray()
+    const searchObject = convertor.toSearchObject(params)
 
-    if (params.length === 1) {
-      return _first(params).value
-    }
-
-    const paramsWihoutCommonPath = params.map(param => ({
-      path: param.path.slice(path.length),
-      value: param.value,
-    }))
-
-    return convertor.toSearchObject(paramsWihoutCommonPath)
+    return _get(searchObject, path, null)
   }
 
   set(key, value) {
@@ -60,7 +53,7 @@ class UrlSearchParams {
       return this
     }
 
-    if (_last(path) === '$array') {
+    if (_last(path) === ARRAY) {
       this.paramsList = this.paramsList.append(path, value)
 
       return this

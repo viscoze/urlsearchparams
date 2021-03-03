@@ -1,6 +1,8 @@
 import _zipWith from 'lodash/zipWith'
 import _takeWhile from 'lodash/takeWhile'
 
+import { ARRAY } from './constants'
+
 export function convertKeyToPath(key) {
   return key.replace(/\[\]/g, '[$array]').replace(/]/g, '').split(/\[/g)
 }
@@ -8,7 +10,7 @@ export function convertKeyToPath(key) {
 export function convertPathToKey(path) {
   const [head, ...rest] = path
   const result = rest.reduce((acc, item) => {
-    if (item === '$array') {
+    if (item === ARRAY) {
       return `${acc}[]`
     }
 
