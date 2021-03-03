@@ -58,7 +58,7 @@
     "params",
     "query"
   ],
-  "author": "viscoze",
+  "author": "vlad-viscoze",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/viscoze/urlsearchparams/issues"
