@@ -4,6 +4,7 @@ import _first from 'lodash/first'
 import _isNil from 'lodash/isNil'
 import _isArray from 'lodash/isArray'
 
+import { ARRAY } from './constants'
 import convertor from './convertor'
 import ParamsList from './ParamsList'
 import { convertKeyToPath } from './helpers'
@@ -60,7 +61,7 @@ class UrlSearchParams {
       return this
     }
 
-    if (_last(path) === '$array') {
+    if (_last(path) === ARRAY) {
       this.paramsList = this.paramsList.append(path, value)
 
       return this

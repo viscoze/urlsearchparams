@@ -4,6 +4,7 @@ import _isEmpty from 'lodash/isEmpty'
 import _isArray from 'lodash/isArray'
 import _isPlainObject from 'lodash/isPlainObject'
 
+import { ARRAY } from '../constants'
 import { convertKeyToPath, convertPathToKey } from '../helpers'
 
 function fromSearchString(searchString) {
@@ -43,7 +44,7 @@ function fromSearchObject(searchObject) {
 
         if (_isArray(value)) {
           return value.reduce(
-            (items, item) => items.concat({ path: path.concat(key).concat('$array'), value: item }),
+            (items, item) => items.concat({ path: path.concat(key).concat(ARRAY), value: item }),
             acc,
           )
         }
@@ -63,7 +64,7 @@ function toSearchObject(paramsArray) {
     const [nextHead] = rest
     const node = acc[head] ?? {}
 
-    if (nextHead === '$array') {
+    if (nextHead === ARRAY) {
       return {
         ...acc,
         [head]: _get(acc, head, []).concat(value),
