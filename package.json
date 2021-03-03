@@ -4,7 +4,7 @@
   "description": "A small library to make working with the URL search string easier",
   "main": "build/index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
     "lint": "eslint src",
     "prettier": "prettier --check '{src,public,config}/**/*.{js,json,md,html}'",
     "build": "webpack --mode production",

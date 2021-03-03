@@ -1,0 +1,63 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@3.0.0
+
+common: &common
+  environment:
+    NODE_ENV: development
+
+  working_directory: ~/app
+
+  docker:
+    - image: circleci/node:current
+
+attach_workspace_at_app: &attach_workspace_at_app
+  attach_workspace:
+    at: ~/app
+
+jobs:
+  prepare:
+    <<: *common
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+
+      - run: yarn install --frozen-lockfile
+
+      - save_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - persist_to_workspace:
+          root: ~/app
+          paths: .
+
+  validate:
+    <<: *common
+
+    steps:
+      - *attach_workspace_at_app
+
+      - run:
+          command: yarn lint
+          when: always
+
+      - run:
+          command: yarn test --maxWorkers=2 --colors
+          when: always
+
+workflows:
+  version: 2
+
+  delivery:
+    jobs:
+      - prepare
+
+      - validate:
+          requires:
+            - prepare
