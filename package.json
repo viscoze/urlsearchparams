@@ -44,10 +44,10 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.js?$": "babel-jest"
+      "^.+\\.ts?$": "babel-jest"
     },
     "testMatch": [
-      "<rootDir>/**/*.test.js"
+      "<rootDir>/**/*.test.ts"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/"

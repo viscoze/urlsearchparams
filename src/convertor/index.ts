@@ -5,8 +5,8 @@ import _isArray from 'lodash/isArray'
 import _isPlainObject from 'lodash/isPlainObject'
 
 import { ARRAY } from '../constants'
-import { convertKeyToPath, convertPathToKey } from '../helpers'
 import { TParamsArray } from '../types'
+import { convertKeyToPath, convertPathToKey } from '../helpers'
 
 function fromSearchString(searchString: string): TParamsArray {
   return searchString
