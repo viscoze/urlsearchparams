@@ -1,31 +1,32 @@
 import _cloneDeep from 'lodash/cloneDeep'
 
 import { includesPath } from '../helpers'
+import { TParamsArray } from '../types'
 
 class ParamsList {
-  paramsArray = []
+  paramsArray: TParamsArray = []
 
-  constructor(paramsArray) {
+  constructor(paramsArray: TParamsArray) {
     this.paramsArray = paramsArray
   }
 
-  static fromArray(paramsArray) {
+  static fromArray(paramsArray: TParamsArray) {
     return new ParamsList(paramsArray)
   }
 
-  get(path) {
+  get(path: string[]) {
     const paramsArray = this.paramsArray.filter(paramItem => includesPath(paramItem.path, path))
 
     return ParamsList.fromArray(paramsArray)
   }
 
-  append(path, value) {
+  append(path: string[], value: string) {
     const nextParamsArray = this.paramsArray.concat({ path, value })
 
     return ParamsList.fromArray(nextParamsArray)
   }
 
-  update(path, value) {
+  update(path: string[], value: string) {
     const nextParamsArray = this.paramsArray
       .filter(paramItem => !includesPath(paramItem.path, path))
       .concat({ path, value })
@@ -33,7 +34,7 @@ class ParamsList {
     return ParamsList.fromArray(nextParamsArray)
   }
 
-  remove(path) {
+  remove(path: string[]) {
     const nextParamsArray = this.paramsArray.filter(
       paramItem => !includesPath(paramItem.path, path),
     )
@@ -41,7 +42,7 @@ class ParamsList {
     return ParamsList.fromArray(nextParamsArray)
   }
 
-  has(path) {
+  has(path: string[]) {
     const param = this.paramsArray.find(paramItem => includesPath(paramItem.path, path))
 
     return Boolean(param)

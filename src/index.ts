@@ -13,7 +13,7 @@ export { default as parse } from './parse'
 
 export { default as stringify } from './stringify'
 
-function preparePath(key) {
+function preparePath(key: string) {
   if (_isArray(key)) {
     return key
   }
@@ -22,21 +22,21 @@ function preparePath(key) {
 }
 
 class UrlSearchParams {
-  paramsList = null
+  paramsList: ParamsList = null
 
-  constructor(searchString) {
+  constructor(searchString: string) {
     this.paramsList = _flow(
-      string => string.replace(/^\?/, ''),
+      (string: string) => string.replace(/^\?/, ''),
       convertor.fromSearchString,
       ParamsList.fromArray,
     )(searchString)
   }
 
-  static fromString(searchString) {
+  static fromString(searchString: string) {
     return new UrlSearchParams(searchString)
   }
 
-  get(key) {
+  get(key: string) {
     const path = preparePath(key)
     const params = this.paramsList.get(path).toArray()
     const searchObject = convertor.toSearchObject(params)
@@ -44,7 +44,7 @@ class UrlSearchParams {
     return _get(searchObject, path, null)
   }
 
-  set(key, value) {
+  set(key: string, value: string) {
     const path = preparePath(key)
 
     if (_isNil(value)) {
@@ -70,7 +70,7 @@ class UrlSearchParams {
     return this
   }
 
-  has(key) {
+  has(key: string) {
     const path = preparePath(key)
 
     return this.paramsList.has(path)

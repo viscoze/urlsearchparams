@@ -6,8 +6,9 @@ import _isPlainObject from 'lodash/isPlainObject'
 
 import { ARRAY } from '../constants'
 import { convertKeyToPath, convertPathToKey } from '../helpers'
+import { TParamsArray } from '../types'
 
-function fromSearchString(searchString) {
+function fromSearchString(searchString: string): TParamsArray {
   return searchString
     .split('&')
     .filter(Boolean)
@@ -22,7 +23,7 @@ function fromSearchString(searchString) {
     }))
 }
 
-function toSearchString(paramsArray) {
+function toSearchString(paramsArray: TParamsArray): string {
   return paramsArray
     .map(({ path, value }) => ({
       key: convertPathToKey(path),
@@ -33,11 +34,15 @@ function toSearchString(paramsArray) {
     .join('&')
 }
 
-function fromSearchObject(searchObject) {
-  function convertToArray(object, path = [], result = []) {
+function fromSearchObject(searchObject: object): TParamsArray {
+  function convertToArray(
+    object: object,
+    path: string[] = [],
+    result: TParamsArray = [],
+  ): TParamsArray {
     return _reduce(
       object,
-      (acc, value, key) => {
+      (acc, value: any, key: string) => {
         if (_isPlainObject(value)) {
           return convertToArray(value, path.concat(key), acc)
         }
@@ -58,11 +63,11 @@ function fromSearchObject(searchObject) {
   return convertToArray(searchObject)
 }
 
-function toSearchObject(paramsArray) {
-  function convert(path, value, acc = {}) {
+function toSearchObject(paramsArray: TParamsArray): object {
+  function convert(path: string[], value: string, acc = {}): object {
     const [head, ...rest] = path
     const [nextHead] = rest
-    const node = acc[head] ?? {}
+    const node: object = (<any>acc)[head] ?? {}
 
     if (nextHead === ARRAY) {
       return {

@@ -3,11 +3,11 @@ import _takeWhile from 'lodash/takeWhile'
 
 import { ARRAY } from './constants'
 
-export function convertKeyToPath(key) {
+export function convertKeyToPath(key: string) {
   return key.replace(/\[\]/g, '[$array]').replace(/]/g, '').split(/\[/g)
 }
 
-export function convertPathToKey(path) {
+export function convertPathToKey(path: string[]) {
   const [head, ...rest] = path
   const result = rest.reduce((acc, item) => {
     if (item === ARRAY) {
@@ -20,16 +20,16 @@ export function convertPathToKey(path) {
   return result
 }
 
-export function comparePaths(pathA, pathB) {
+export function comparePaths(pathA: string[], pathB: string[]) {
   return pathA.join('.') === pathB.join('.')
 }
 
-export function includesPath(pathA, pathB) {
+export function includesPath(pathA: string[], pathB: string[]) {
   const lengthA = pathA.length
   const lengthB = pathB.length
 
   const count = _takeWhile(
-    _zipWith(pathA, pathB, (a, b) => a === b),
+    _zipWith(pathA, pathB, (a: string[], b: string[]) => a === b),
     Boolean,
   ).length
 
