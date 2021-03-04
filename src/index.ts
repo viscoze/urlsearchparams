@@ -5,6 +5,7 @@ import _isNil from 'lodash/isNil'
 import _isArray from 'lodash/isArray'
 
 import { ARRAY } from './constants'
+import { TKey, TValue } from './types'
 import convertor from './convertor'
 import ParamsList from './ParamsList'
 import { convertKeyToPath } from './helpers'
@@ -13,7 +14,7 @@ export { default as parse } from './parse'
 
 export { default as stringify } from './stringify'
 
-function preparePath(key: string) {
+function preparePath(key: TKey): string[] {
   if (_isArray(key)) {
     return key
   }
@@ -22,7 +23,7 @@ function preparePath(key: string) {
 }
 
 class UrlSearchParams {
-  paramsList: ParamsList = null
+  paramsList: ParamsList
 
   constructor(searchString: string) {
     this.paramsList = _flow(
@@ -36,7 +37,7 @@ class UrlSearchParams {
     return new UrlSearchParams(searchString)
   }
 
-  get(key: string) {
+  get(key: TKey) {
     const path = preparePath(key)
     const params = this.paramsList.get(path).toArray()
     const searchObject = convertor.toSearchObject(params)
@@ -44,7 +45,7 @@ class UrlSearchParams {
     return _get(searchObject, path, null)
   }
 
-  set(key: string, value: string) {
+  set(key: TKey, value: TValue) {
     const path = preparePath(key)
 
     if (_isNil(value)) {
@@ -70,7 +71,7 @@ class UrlSearchParams {
     return this
   }
 
-  has(key: string) {
+  has(key: TKey) {
     const path = preparePath(key)
 
     return this.paramsList.has(path)

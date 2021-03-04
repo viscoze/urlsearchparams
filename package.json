@@ -6,9 +6,8 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint src",
-    "prettier": "prettier --check '{src,public,config}/**/*.{js,json,md,html}'",
-    "build": "tsc",
-    "build_": "webpack --mode production",
+    "prettier": "prettier --check '{src,public,config}/**/*.{ts,js,json,md,html}'",
+    "build": "webpack --mode production",
     "publish": "npm publish --access public",
     "prepublish": "webpack --mode production"
   },
@@ -31,6 +30,7 @@
     "eslint-plugin-jest": "^24.1.3",
     "jest": "^26.6.3",
     "prettier": "^2.0.5",
+    "ts-loader": "^8.0.17",
     "typescript": "^4.2.2",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.0"

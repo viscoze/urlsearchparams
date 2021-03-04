@@ -2,12 +2,13 @@ import _zipWith from 'lodash/zipWith'
 import _takeWhile from 'lodash/takeWhile'
 
 import { ARRAY } from './constants'
+import { TPath } from './types'
 
-export function convertKeyToPath(key: string) {
+export function convertKeyToPath(key: string): TPath {
   return key.replace(/\[\]/g, '[$array]').replace(/]/g, '').split(/\[/g)
 }
 
-export function convertPathToKey(path: string[]) {
+export function convertPathToKey(path: TPath): string {
   const [head, ...rest] = path
   const result = rest.reduce((acc, item) => {
     if (item === ARRAY) {
@@ -20,16 +21,16 @@ export function convertPathToKey(path: string[]) {
   return result
 }
 
-export function comparePaths(pathA: string[], pathB: string[]) {
+export function comparePaths(pathA: TPath, pathB: TPath): boolean {
   return pathA.join('.') === pathB.join('.')
 }
 
-export function includesPath(pathA: string[], pathB: string[]) {
+export function includesPath(pathA: TPath, pathB: TPath): boolean {
   const lengthA = pathA.length
   const lengthB = pathB.length
 
   const count = _takeWhile(
-    _zipWith(pathA, pathB, (a: string[], b: string[]) => a === b),
+    _zipWith(pathA, pathB, (a: TPath, b: TPath) => a === b),
     Boolean,
   ).length
 
