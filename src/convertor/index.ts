@@ -5,7 +5,7 @@ import _isArray from 'lodash/isArray'
 import _isPlainObject from 'lodash/isPlainObject'
 
 import { ARRAY } from '../constants'
-import { TParamsArray } from '../types'
+import { TParamsArray, TValue } from '../types'
 import { convertKeyToPath, convertPathToKey } from '../helpers'
 
 function fromSearchString(searchString: string): TParamsArray {
@@ -34,9 +34,9 @@ function toSearchString(paramsArray: TParamsArray): string {
     .join('&')
 }
 
-function fromSearchObject(searchObject: object): TParamsArray {
+function fromSearchObject(searchObject: Record<string, unknown>): TParamsArray {
   function convertToArray(
-    object: object,
+    object: Record<string, unknown>,
     path: string[] = [],
     result: TParamsArray = [],
   ): TParamsArray {
@@ -63,11 +63,11 @@ function fromSearchObject(searchObject: object): TParamsArray {
   return convertToArray(searchObject)
 }
 
-function toSearchObject(paramsArray: TParamsArray): object {
-  function convert(path: string[], value: string, acc = {}): object {
+function toSearchObject(paramsArray: TParamsArray): Record<string, unknown> {
+  function convert(path: string[], value: TValue, acc = {}): Record<string, unknown> {
     const [head, ...rest] = path
     const [nextHead] = rest
-    const node: object = (<any>acc)[head] ?? {}
+    const node: Record<string, unknown> = (<any>acc)[head] ?? {}
 
     if (nextHead === ARRAY) {
       return {

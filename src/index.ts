@@ -33,11 +33,11 @@ class UrlSearchParams {
     )(searchString)
   }
 
-  static fromString(searchString: string) {
+  static fromString(searchString: string): UrlSearchParams {
     return new UrlSearchParams(searchString)
   }
 
-  get(key: TKey) {
+  get(key: TKey): Record<string, unknown> | string {
     const path = preparePath(key)
     const params = this.paramsList.get(path).toArray()
     const searchObject = convertor.toSearchObject(params)
@@ -45,7 +45,7 @@ class UrlSearchParams {
     return _get(searchObject, path, null)
   }
 
-  set(key: TKey, value: TValue) {
+  set(key: TKey, value: TValue): UrlSearchParams {
     const path = preparePath(key)
 
     if (_isNil(value)) {
@@ -71,17 +71,17 @@ class UrlSearchParams {
     return this
   }
 
-  has(key: TKey) {
+  has(key: TKey): boolean {
     const path = preparePath(key)
 
     return this.paramsList.has(path)
   }
 
-  toString() {
+  toString(): string {
     return convertor.toSearchString(this.paramsList.toArray())
   }
 
-  toObject() {
+  toObject(): Record<string, unknown> {
     return convertor.toSearchObject(this.paramsList.toArray())
   }
 }

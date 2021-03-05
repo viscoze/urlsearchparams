@@ -6,7 +6,7 @@ export type TValue = number | string | boolean | null | undefined
 
 export type TParamItem = {
   path: string[]
-  value: any
+  value: TValue
 }
 
 export type TParamsArray = TParamItem[]
