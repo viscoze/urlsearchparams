@@ -1,6 +1,5 @@
 const path = require('path')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: './src/index.ts',
@@ -8,18 +7,18 @@ module.exports = {
   module: {
     rules: [
       {
+        use: ['babel-loader'],
         test: /\.ts?$/,
-        use: 'ts-loader',
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ['.ts'],
+    extensions: ['.ts', '.js'],
   },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
   },
-  plugins: [new LodashModuleReplacementPlugin(), new UglifyJsPlugin()],
+  plugins: [new LodashModuleReplacementPlugin()],
 }

@@ -1,5 +1,5 @@
-import { zipWith as _zipWith } from 'lodash'
-import { takeWhile as _takeWhile } from 'lodash'
+import _zipWith from 'lodash/zipWith'
+import _takeWhile from 'lodash/takeWhile'
 
 import { ARRAY } from './constants'
 import { TPath } from './types'

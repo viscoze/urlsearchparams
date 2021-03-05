@@ -1,8 +1,8 @@
-import { get as _get } from 'lodash'
-import { reduce as _reduce } from 'lodash'
-import { isEmpty as _isEmpty } from 'lodash'
-import { isArray as _isArray } from 'lodash'
-import { isPlainObject as _isPlainObject } from 'lodash'
+import _get from 'lodash/get'
+import _reduce from 'lodash/reduce'
+import _isEmpty from 'lodash/isEmpty'
+import _isArray from 'lodash/isArray'
+import _isPlainObject from 'lodash/isPlainObject'
 
 import { ARRAY } from '../constants'
 import { TParamsArray } from '../types'
