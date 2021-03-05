@@ -1,4 +1,4 @@
-import _flow from 'lodash/flow'
+import { flow as _flow } from 'lodash'
 
 import convertor from '../convertor'
 

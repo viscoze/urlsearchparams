@@ -1,4 +1,4 @@
-import _cloneDeep from 'lodash/cloneDeep'
+import { cloneDeep as _cloneDeep } from 'lodash'
 
 import { includesPath } from '../helpers'
 import { TParamsArray, TPath, TValue } from '../types'

@@ -1,8 +1,8 @@
-import _get from 'lodash/get'
-import _flow from 'lodash/flow'
-import _last from 'lodash/last'
-import _isNil from 'lodash/isNil'
-import _isArray from 'lodash/isArray'
+import { get as _get } from 'lodash'
+import { flow as _flow } from 'lodash'
+import { last as _last } from 'lodash'
+import { isNil as _isNil } from 'lodash'
+import { isArray as _isArray } from 'lodash'
 
 import { ARRAY } from './constants'
 import { TKey, TValue } from './types'

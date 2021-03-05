@@ -1,5 +1,5 @@
-import _zipWith from 'lodash/zipWith'
-import _takeWhile from 'lodash/takeWhile'
+import { zipWith as _zipWith } from 'lodash'
+import { takeWhile as _takeWhile } from 'lodash'
 
 import { ARRAY } from './constants'
 import { TPath } from './types'
@@ -30,7 +30,7 @@ export function includesPath(pathA: TPath, pathB: TPath): boolean {
   const lengthB = pathB.length
 
   const count = _takeWhile(
-    _zipWith(pathA, pathB, (a: TPath, b: TPath) => a === b),
+    _zipWith(pathA as any[], pathB as any[], (a: TPath, b: TPath) => a === b),
     Boolean,
   ).length
 

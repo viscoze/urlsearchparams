@@ -1,8 +1,10 @@
 const path = require('path')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: './src/index.ts',
-  devtool: 'inline-source-map',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -16,7 +18,8 @@ module.exports = {
     extensions: ['.ts'],
   },
   output: {
-    filename: 'index.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
   },
+  plugins: [new LodashModuleReplacementPlugin(), new UglifyJsPlugin()],
 }
