@@ -1,5 +1,4 @@
 const path = require('path')
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 module.exports = {
   entry: './src/index.ts',
@@ -20,5 +19,4 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
   },
-  plugins: [new LodashModuleReplacementPlugin()],
 }
