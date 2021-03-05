@@ -52,7 +52,7 @@ describe('get', () => {
 })
 
 describe('set', () => {
-  let urlSearch
+  let urlSearch: UrlSearchParams
 
   const searchString = 'query1[obj][field1]=value1&query1[obj][field2]=value2'
 
@@ -170,7 +170,7 @@ describe('set', () => {
 })
 
 describe('has', () => {
-  let urlSearch
+  let urlSearch: UrlSearchParams
 
   const searchString = 'query[obj][field1]=value1&query[obj][field2]=value2'
 

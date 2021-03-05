@@ -1,23 +1,24 @@
 const path = require('path')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 module.exports = {
+  entry: './src/index.ts',
   mode: 'production',
-  entry: './src/index.js',
-  output: {
-    path: path.resolve('build'),
-    filename: 'index.js',
-    libraryTarget: 'commonjs2',
-  },
   module: {
     rules: [
       {
-        test: /\.js?$/,
-        exclude: /(node_modules)/,
-        use: 'babel-loader',
+        use: ['babel-loader'],
+        test: /\.ts?$/,
+        exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.ts', '.js'],
   },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'build'),
+  },
+  plugins: [new LodashModuleReplacementPlugin()],
 }
