@@ -8,6 +8,7 @@ module.exports = {
       {
         use: ['babel-loader'],
         test: /\.ts?$/,
+        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
       },
     ],
@@ -16,7 +17,8 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'build'),
+    libraryTarget: 'commonjs2',
   },
 }
