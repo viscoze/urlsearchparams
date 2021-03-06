@@ -1,23 +1,24 @@
 const path = require('path')
 
 module.exports = {
+  entry: './src/index.ts',
   mode: 'production',
-  entry: './src/index.js',
-  output: {
-    path: path.resolve('build'),
-    filename: 'index.js',
-    libraryTarget: 'commonjs2',
-  },
   module: {
     rules: [
       {
-        test: /\.js?$/,
-        exclude: /(node_modules)/,
-        use: 'babel-loader',
+        use: ['babel-loader'],
+        test: /\.ts?$/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.ts', '.js'],
+  },
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'build'),
+    libraryTarget: 'commonjs2',
   },
 }

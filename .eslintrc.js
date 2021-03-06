@@ -4,8 +4,9 @@ module.exports = {
     es2021: true,
     'jest/globals': true,
   },
-  extends: ['airbnb-base'],
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:jest/recommended'],
+  plugins: ['@typescript-eslint', 'jest'],
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'module',
@@ -17,5 +18,4 @@ module.exports = {
     'arrow-parens': ['error', 'as-needed'],
     'operator-linebreak': ['error', 'after'],
   },
-  plugins: ['jest'],
 }
